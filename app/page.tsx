@@ -16,18 +16,21 @@ const projects = [
 ];
 
 function LlamingoGuide() {
-  const [position, setPosition] = useState({ x: 50, y: 55 });
-  const [look, setLook] = useState({ x: 0, y: 0 });
+  const [look, setLook] = useState({ x: 0, y: 0, turn: 0, nod: 0 });
   const frame = useRef<number | null>(null);
 
   useEffect(() => {
     const onMove = (event: PointerEvent) => {
       if (frame.current) cancelAnimationFrame(frame.current);
       frame.current = requestAnimationFrame(() => {
-        const x = (event.clientX / window.innerWidth) * 100;
-        const y = (event.clientY / window.innerHeight) * 100;
-        setPosition({ x, y });
-        setLook({ x: Math.max(-4, Math.min(4, (x - 50) / 10)), y: Math.max(-3, Math.min(3, (y - 45) / 14)) });
+        const x = event.clientX / window.innerWidth - 0.5;
+        const y = event.clientY / window.innerHeight - 0.5;
+        setLook({
+          x: Math.max(-6, Math.min(6, x * 14)),
+          y: Math.max(-4, Math.min(4, y * 10)),
+          turn: Math.max(-16, Math.min(16, x * 34)),
+          nod: Math.max(-4, Math.min(4, y * 9)),
+        });
       });
     };
     window.addEventListener('pointermove', onMove, { passive: true });
@@ -38,8 +41,10 @@ function LlamingoGuide() {
   }, []);
 
   return (
-    <div className="llama-orbit" aria-hidden="true" style={{ '--cursor-x': `${position.x}%`, '--cursor-y': `${position.y}%`, '--look-x': `${look.x}px`, '--look-y': `${look.y}px` } as React.CSSProperties}>
+    <div className="llama-orbit" aria-hidden="true" style={{ '--look-x': `${look.x}px`, '--look-y': `${look.y}px`, '--head-turn': `${look.turn}deg`, '--neck-turn': `${look.turn * 0.38}deg`, '--neck-shift': `${look.turn * 0.48}px`, '--head-nod': `${look.nod}px` } as React.CSSProperties}>
       <div className="llama-trail" />
+      <div className="llama-body" />
+      <div className="llama-neck" />
       <div className="llama-head">
         <span className="llama-ear ear-left" /><span className="llama-ear ear-right" />
         <span className="llama-hair h1" /><span className="llama-hair h2" /><span className="llama-hair h3" />
@@ -73,7 +78,7 @@ export default function Home() {
           <p>Publicidad, producción y experiencias que mueven marcas — y personas.</p>
           <a className="circle-cta" href="#trabajo" aria-label="Ver trabajos"><span>VER<br />TRABAJOS</span><i>↓</i></a>
         </div>
-        <div className="direction-line"><span>Tu cursor dirige la escena</span></div>
+        <div className="direction-line"><span>Mueve el cursor · Llamingo te observa</span></div>
       </section>
 
       <section className="manifesto" id="nosotros">
