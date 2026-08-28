@@ -69,16 +69,27 @@ export default function Home() {
         <div className="grain" />
         <LlamingoGuide />
         <p className="eyebrow hero-enter delay-1">Agencia creativa + productora audiovisual · Quito, EC</p>
-        <h1 className="hero-title" aria-label="Ideas que se vuelven imposibles de ignorar">
-          <span className="hero-enter delay-2">IDEAS QUE SE</span>
-          <span className="outline hero-enter delay-3">VUELVEN IMPOSIBLES</span>
-          <span className="hero-enter delay-4">DE IGNORAR.</span>
-        </h1>
-        <div className="hero-bottom hero-enter delay-5">
-          <p>Publicidad, producción y experiencias que mueven marcas — y personas.</p>
-          <a className="circle-cta" href="#trabajo" aria-label="Ver trabajos"><span>VER<br />TRABAJOS</span><i>↓</i></a>
+        <div className="hero-stage">
+          <div className="hero-copy">
+            <h1 className="hero-title" aria-label="Hacemos marcas imposibles de ignorar">
+              <span className="hero-enter delay-2">HACEMOS</span>
+              <span className="hero-enter delay-2">MARCAS</span>
+              <span className="outline hero-enter delay-3">IMPOSIBLES</span>
+              <span className="hero-enter delay-3">DE IGNORAR.</span>
+            </h1>
+            <p className="hero-summary hero-enter delay-4">Publicidad, producción y experiencias que mueven marcas — y personas.</p>
+          </div>
+          <div className="hero-options hero-enter delay-5" aria-label="Explora nuestros servicios">
+            <p>¿Qué hacemos?</p>
+            {services.map((service) => (
+              <a href="#servicios" key={service.n}>
+                <span>{service.n}</span>
+                <strong>{service.title}</strong>
+                <i>↗</i>
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="direction-line"><span>Mueve el cursor · Llamingo te observa</span></div>
       </section>
 
       <section className="manifesto" id="nosotros">
