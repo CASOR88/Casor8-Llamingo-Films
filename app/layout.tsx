@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     description: 'Agencia creativa y productora audiovisual de Ecuador.',
     images: ['/og.png'],
   },
+  icons: {
+    icon: '/llamingo-app-icon.svg',
+    shortcut: '/llamingo-app-icon.svg',
+    apple: '/llamingo-app-icon.svg',
+  },
 };
 
 export default function RootLayout({
